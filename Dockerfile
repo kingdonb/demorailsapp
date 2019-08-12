@@ -1,5 +1,5 @@
 # This Dockerfile uses the latest version of the Bitnami Rails Docker image
-FROM kingdonb/rails:latest
+FROM kingdonb/rails:postgresql
 
 # Copy app's source code to the /app directory
 COPY . /app
