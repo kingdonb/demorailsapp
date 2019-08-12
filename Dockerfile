@@ -23,11 +23,10 @@ USER bitnami
 RUN bundle install
 
 USER root
-RUN chown -R bitnami:bitnami /app /home/bitnami
-USER bitnami
-
 # Copy app's source code to the /app directory
 COPY . /app
+RUN chown -R bitnami:bitnami /app /home/bitnami
+USER bitnami
 
 # The application's directory will be the working directory
 WORKDIR /app
