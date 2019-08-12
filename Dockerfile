@@ -7,19 +7,28 @@ USER root
 # We install the javascript environment needed by rails
 RUN install_packages nodejs
 
-# Copy app's source code to the /app directory
-COPY . /app
+# Copy app's Gemfile dependency information
+COPY Gemfile Gemfile.lock /app/
 
+USER root
 # Actions will be performed by the user 'bitnami', so it's good practice
 # to explicitly set the required permissions
 RUN chown -R bitnami:bitnami /app /home/bitnami
 
 # Change the effective UID from 'root' to 'bitnami'
-# Never run application code as 'root'!
+# Never run application code (or bundler) as 'root'!
 USER bitnami
-
-# The application's directory will be the working directory
-WORKDIR /app
 
 # Install the application dependencies defined in the Gemfile
 RUN bundle install
+
+USER root
+RUN chown -R bitnami:bitnami /app /home/bitnami
+USER bitnami
+
+# Copy app's source code to the /app directory
+COPY . /app
+
+# The application's directory will be the working directory
+WORKDIR /app
+RUN bundle check
