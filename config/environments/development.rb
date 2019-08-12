@@ -6,6 +6,10 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # This will whitelist all IPv4 and IPv6 addresses. Please, only
+  # run tests with that configuration, its a huge security hole.
+  config.web_console.whitelisted_ips = %w( 0.0.0.0/0 ::/0 )
+
   # Do not eager load code on boot.
   config.eager_load = false
 
