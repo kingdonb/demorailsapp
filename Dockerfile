@@ -1,14 +1,14 @@
 # This Dockerfile uses the latest version of the Bitnami Rails Docker image
 FROM kingdonb/rails:postgresql
 
-# Copy app's source code to the /app directory
-COPY . /app
-
 # The following operations need to be executed as root
 USER root
 
 # We install the javascript environment needed by rails
 RUN install_packages nodejs
+
+# Copy app's source code to the /app directory
+COPY . /app
 
 # Actions will be performed by the user 'bitnami', so it's good practice
 # to explicitly set the required permissions
